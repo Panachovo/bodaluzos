@@ -1,0 +1,103 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="bodaluzos-social.html">
+<link rel="import" href="bodaluzos-home.html">
+<link rel="import" href="bodaluzos-timeline.html">
+<link rel="import" href="bodaluzos-info.html">
+
+
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-box/app-box.html">
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<dom-module id="BodaLuzos-app">
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+
+        --app-primary-color: #aee4d6;
+        --app-dark-primary-color: #267461;
+        --app-light-gray-color: #a5a2a3;
+        --app-dark-gray-color: #414141;
+      }
+      
+      @font-face {
+        font-family: "Carolinea";
+        src: url(../fonts/Carolinea.ttf) format("truetype");
+      }
+      
+      app-toolbar {
+        height: 225px;
+        font-weight: 400;
+        letter-spacing: 5px;
+        text-align: center;
+        color: var(--app-primary-color, black);
+        font-family: 'Carolinea';
+        --app-toolbar-font-size: 15vmax;
+        background-image: url("../images/header.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+      
+      .nav {
+        height: 64px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      
+      .nav li {
+        display: inline-block;
+        list-style: none;
+      }
+      
+      .nav a {
+        display: inline-block;
+        font-weight: 12px;
+        line-height: 64px;
+        text-decoration: none;
+        color: black;
+        font-weight: 300;
+        margin: 0 10px;
+      }
+      
+      .nav a:hover {
+        color: #444;
+        border-bottom: 1px solid #999;
+      }
+    </style>
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
+    <header>
+      <app-toolbar>
+        <div main-title>#BodaLuzos</div>
+      </app-toolbar>
+      <app-box threshold="64">
+        <ul role="navigation" class="nav">
+          <li><a href="/home">Inicio</a></li>
+          <li><a href="/nuestra-historia">Nuestra historia</a></li>
+          <li><a href="/info/main">Informaci&oacute;n &uacute;til</a></li>
+          <li><a href="/confirmar">Confirmar asistencia</a></li>
+        </ul>
+      </app-box>
+    </header>
+    <iron-pages attr-for-selected="name" selected="[[data.page]]">
+      <bodaluzos-home name="home"></bodaluzos-home>
+      <bodaluzos-timeline name="nuestra-historia"></bodaluzos-timeline>
+      <bodaluzos-info name="info"></bodaluzos-info>
+    </iron-pages>
+  </template>
+  <script>
+    Polymer({
+
+      is: 'BodaLuzos-app',
+
+    });
+  </script>
+</dom-module>

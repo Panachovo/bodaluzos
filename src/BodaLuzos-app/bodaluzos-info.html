@@ -1,0 +1,56 @@
+<link rel="import" href="bodaluzos-main-info.html">
+<link rel="import" href="bodaluzos-ceremony-info.html">
+<link rel="import" href="bodaluzos-banquet-info.html">
+<link rel="import" href="bodaluzos-rooms-info.html">
+<link rel="import" href="bodaluzos-todo-info.html">
+
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
+
+<dom-module id="bodaluzos-info">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <app-location route="{{route}}"></app-location>
+        <app-route route="{{route}}" pattern="/:page/:subpage" data="{{data}}"></app-route>
+
+        <!--<iron-pages attr-for-selected="name" selected="[[data.subpage]]">-->
+        <neon-animated-pages attr-for-selected="name" selected="[[data.subpage]]" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
+            <neon-animatable name="main">
+                <bodaluzos-main-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-main-info>
+            </neon-animatable>
+            <neon-animatable name="ceremonia">
+                <bodaluzos-ceremony-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-ceremony-info>
+            </neon-animatable>
+            <neon-animatable name="banquete">
+                <bodaluzos-banquet-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-banquet-info>
+            </neon-animatable>
+            <neon-animatable name="donde-dormir">
+                <bodaluzos-rooms-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-rooms-info>
+            </neon-animatable>
+            <neon-animatable name="que-hacer">
+                <bodaluzos-todo-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-todo-info>
+            </neon-animatable>
+        </neon-animated-pages>
+        <!--</iron-pages>-->
+    </template>
+    <script>
+        Polymer({
+            is: 'bodaluzos-info',
+            properties: {
+                entryAnimation: {
+                    type: String,
+                    value: ''
+                },
+                exitAnimation: {
+                    type: String,
+                    value: ''
+                }
+            }
+        });
+    </script>
+</dom-module>

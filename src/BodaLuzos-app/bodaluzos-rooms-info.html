@@ -1,0 +1,77 @@
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="bodaluzos-rooms-info">
+    <template>
+        <style>
+            :host {
+                display: block;
+                margin: 10px auto;
+                width: 90%;
+                --paper-card-header: {
+                    height: 200px;
+                }
+                ;
+            }
+            
+            .header {
+                @apply(--paper-font-headline);
+                color: var(--app-dark-gray-color);
+            }
+            
+            .header-icon {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+            paper-button {
+                margin: 0;
+                min-width: 0;
+                text-transform: none;
+                color: var(--app-dark-primary-color, black);
+                text-decoration: none;
+            }
+        </style>
+        <paper-card heading="" image="/src/images/room-1.jpg" elevation="1" animated-shadow="false">
+            <div class="card-content">
+                <div class="header">D&oacute;nde dormir
+                    <div class="header-icon">
+                        <iron-icon icon="notification:wc"></iron-icon>
+                    </div>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio odio accusantium, quibusdam doloremque,
+                    laudantium asperiores ipsam quaerat atque reprehenderit earum corporis, porro quos eius! Dolorem soluta
+                    consectetur tenetur, omnis nisi.</p>
+            </div>
+            <div class="card-actions">
+                <a href="/info/main" on-tap="prepareAnimation">
+                    <paper-button>Volver</paper-button>
+                </a>
+            </div>
+        </paper-card>
+    </template>
+    <script>
+        Polymer({
+            is: 'bodaluzos-rooms-info',
+            properties: {
+                entryAnimation: {
+                    type: String,
+                    notify: true
+                },
+                exitAnimation: {
+                    type: String,
+                    notify: true
+                },
+            },
+            prepareAnimation: function(){
+                this.set('entryAnimation','slide-from-left-animation');
+                this.set('exitAnimation','slide-right-animation');
+            }
+        });
+    </script>
+</dom-module>

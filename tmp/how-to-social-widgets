@@ -1,0 +1,63 @@
+TWITTER
+=======
+
+url para llamar a la api: https://api.twitter.com/1.1/search/tweets.json
+
+para recuperar los tweets con un hastag, realizar la llamada con estos parámetros: ?q=%23chenoaybisbal donde %23 es #
+
+para probar que se recupera por twitter, usar la url: https://twitter.com/search
+
+
+
+uOwtaQNjefqQ2WniURdLyoAIT:g68O6y3rfuSbwErdrbt982y6Rb8IgNwDSZrkvo85Yyi0AR1PLS
+
+dU93dGFRTmplZnFRMlduaVVSZEx5b0FJVDpnNjhPNnkzcmZ1U2J3RXJkcmJ0OTgyeTZSYjhJZ053RFNacmt2bzg1WXlpMEFSMVBMUw==
+
+
+Llamada para app auth
+---------------------
+
+https://api.twitter.com/oauth2/token
+
+headers:
+Authorization: Basic dU93dGFRTmplZnFRMlduaVVSZEx5b0FJVDpnNjhPNnkzcmZ1U2J3RXJkcmJ0OTgyeTZSYjhJZ053RFNacmt2bzg1WXlpMEFSMVBMUw==
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+Accept-Encoding: gzip
+
+body:
+grant_type=client_credentials
+
+
+respuesta:
+
+{
+"token_type": "bearer",
+"access_token": "AAAAAAAAAAAAAAAAAAAAAAUzxgAAAAAAf%2BUmcIS2l160PAl7MAK2IkazVO4%3DDcfYC3m1YoPOo79rIYLmGiS69eK6zqUWvpq3wmAcAfHPHmrzhg"
+}
+
+Peticion para consultar
+-----------------------
+
+https://api.twitter.com/1.1/search/tweets.json?q=%23chenoaybisbal
+
+headers:
+Authorization: Bearer AAAAAAAAAAAAAAAAAAAAAAUzxgAAAAAAf%2BUmcIS2l160PAl7MAK2IkazVO4%3DDcfYC3m1YoPOo79rIYLmGiS69eK6zqUWvpq3wmAcAfHPHmrzhg
+Accept-Encoding: gzip
+
+
+
+Widgets:
+
+facebook: https://developers.facebook.com/docs/plugins/page-plugin
+twiter: https://twitter.com/settings/widgets/815949301121687553/edit?focus_textarea=1&notice=WIDGET_CREATED
+
+todos: https://snapwidget.com/
+
+
+
+
+
+https://api.instagram.com/oembed?url=https://www.instagram.com/explore/tags/noeanto/
+
+
+https://codyhouse.co/gem/vertical-timeline/

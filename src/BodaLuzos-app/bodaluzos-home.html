@@ -1,0 +1,43 @@
+<dom-module id="bodaluzos-home">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+            
+            #home {
+                margin: 40px auto;
+                width: 500px;
+            }
+        </style>
+        <div id="home">
+            Quedan [[timeout]] d&iacute;as para la boda!!!
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'bodaluzos-home',
+            
+            properties: {
+                timeout: String,
+                dayd: Date
+            },
+
+            refreshTimeout: function(){
+                var now = Date.now();
+                var segundos = (this.dayd - now)/1000;
+                var minutos = segundos/60;
+                var horas = minutos/60;
+                var dias = horas/24;
+                this.timeout = Math.floor(dias);
+                var _this = this;
+                setTimeout(function(){_this.refreshTimeout()}, 1000);
+            },
+
+            attached: function(){
+                this.dayd = new Date('2017-05-20');
+                this.refreshTimeout();
+            },
+        });
+    </script>
+</dom-module>
