@@ -4,6 +4,7 @@
 <link rel="import" href="bodaluzos-home.html">
 <link rel="import" href="bodaluzos-timeline.html">
 <link rel="import" href="bodaluzos-info.html">
+<link rel="import" href="bodaluzos-confirm.html">
 
 
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
@@ -13,6 +14,7 @@
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+
 <dom-module id="BodaLuzos-app">
   <template>
     <style is="custom-style">
@@ -91,13 +93,18 @@
       <bodaluzos-home name="home"></bodaluzos-home>
       <bodaluzos-timeline name="nuestra-historia"></bodaluzos-timeline>
       <bodaluzos-info name="info"></bodaluzos-info>
+      <bodaluzos-confirm name="confirmar"></bodaluzos-confirm>
     </iron-pages>
   </template>
   <script>
     Polymer({
 
       is: 'BodaLuzos-app',
-
+      attached: function(){
+        if(this.data.page == ''){
+          this.set('data.page', 'home');
+        }
+      }
     });
   </script>
 </dom-module>

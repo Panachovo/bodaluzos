@@ -61,3 +61,7 @@ https://api.instagram.com/oembed?url=https://www.instagram.com/explore/tags/noea
 
 
 https://codyhouse.co/gem/vertical-timeline/
+
+
+#Para reemplazar los hastags del tweet por enlaces:
+replace(/#(\S*)/g,'<a href="http://twitter.com/#!/search/$1">$1</a>'); 
