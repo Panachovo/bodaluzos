@@ -14,13 +14,19 @@
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../../bower_components/paper-menu-button/paper-menu-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
 
 <dom-module id="BodaLuzos-app">
   <template>
     <style is="custom-style">
       :host {
         display: block;
-
         --app-primary-color: #aee4d6;
         --app-dark-primary-color: #267461;
         --app-light-gray-color: #a5a2a3;
@@ -33,7 +39,7 @@
       }
       
       app-toolbar {
-        height: 225px;
+        height: 100px;
         font-weight: 400;
         letter-spacing: 5px;
         text-align: center;
@@ -47,32 +53,58 @@
       }
       
       .nav {
-        height: 64px;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.8);
+          display: none;
       }
-      
-      .nav li {
-        display: inline-block;
-        list-style: none;
+
+      .menu {
+        color: var(--app-dark-gray-color, black);
       }
-      
-      .nav a {
-        display: inline-block;
-        font-weight: 12px;
-        line-height: 64px;
-        text-decoration: none;
-        color: black;
-        font-weight: 300;
-        margin: 0 10px;
+    
+      .menu a{
+          display: inline-block;
+          font-weight: 12px;
+          line-height: 64px;
+          text-decoration: none;
+          color: var(--app-dark-gray-color, black);
+          font-weight: 300;
+          margin: 0 10px;
       }
-      
-      .nav a:hover {
-        color: #444;
-        border-bottom: 1px solid #999;
+      @media only screen and (min-width: 768px) {
+
+        .menu {
+          display: none;
+        }
+
+        app-toolbar {
+          height: 225px;
+        }
+        .nav {
+          display: block;
+          height: 64px;
+          margin: 0;
+          padding: 0;
+          text-align: center;
+          background-color: rgba(255, 255, 255, 0.8);
+        }
+        .nav li {
+          display: inline-block;
+          list-style: none;
+        }
+        .nav a {
+          display: inline-block;
+          font-weight: 12px;
+          line-height: 64px;
+          text-decoration: none;
+          color: var(--app-dark-gray-color, black);
+          font-weight: 300;
+          margin: 0 10px;
+        }
+        .nav a:hover {
+          color: #444;
+          border-bottom: 1px solid #999;
+        }
       }
+
     </style>
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{data}}"></app-route>
@@ -87,6 +119,17 @@
           <li><a href="/info/main">Informaci&oacute;n &uacute;til</a></li>
           <li><a href="/confirmar">Confirmar asistencia</a></li>
         </ul>
+        <div class="menu">
+          <paper-menu-button >
+            <paper-icon-button icon="menu" class="dropdown-trigger" alt="menu"></paper-icon-button>
+            <paper-menu class="dropdown-content">
+              <paper-item><a href="/home">Inicio</a></paper-item>
+              <paper-item><a href="/nuestra-historia">Nuestra historia</a></paper-item>
+              <paper-item><a href="/info/main">Informaci&oacute;n &uacute;til</a></paper-item>
+              <paper-item><a href="/confirmar">Confirmar asistencia</a></paper-item>
+            </paper-menu>
+          </paper-menu-button>
+        </div>
       </app-box>
     </header>
     <iron-pages attr-for-selected="name" selected="[[data.page]]">
@@ -104,7 +147,14 @@
         if(this.data.page == ''){
           this.set('data.page', 'home');
         }
-      }
+        this._updateGridStyles = this._updateGridStyles || function() {
+        this.updateStyles();
+        }.bind(this);
+        window.addEventListener('resize', this._updateGridStyles);
+      },
+      detached: function() {
+          window.removeEventListener('resize', this._updateGridStyles);
+      },
     });
   </script>
 </dom-module>

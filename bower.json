@@ -13,7 +13,11 @@
     "polymerfire": "firebase/polymerfire#^0.10.3",
     "paper-input": "PolymerElements/paper-input#^1.1.22",
     "gold-email-input": "PolymerElements/gold-email-input#^1.0.9",
-    "gold-phone-input": "PolymerElements/gold-phone-input#^1.1.0"
+    "gold-phone-input": "PolymerElements/gold-phone-input#^1.1.0",
+    "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
+    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
+    "paper-item": "PolymerElements/paper-item#^1.2.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
