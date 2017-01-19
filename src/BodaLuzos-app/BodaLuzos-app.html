@@ -1,10 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="bodaluzos-social.html">
+<!--<link rel="import" href="bodaluzos-social.html">
 <link rel="import" href="bodaluzos-home.html">
 <link rel="import" href="bodaluzos-timeline.html">
 <link rel="import" href="bodaluzos-info.html">
-<link rel="import" href="bodaluzos-confirm.html">
+<link rel="import" href="bodaluzos-confirm.html">-->
 
 
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
@@ -115,38 +115,51 @@
       <app-box threshold="64">
         <ul role="navigation" class="nav">
           <li><a href="/home">Inicio</a></li>
-          <li><a href="/nuestra-historia">Nuestra historia</a></li>
+          <li><a href="/timeline">Nuestra historia</a></li>
           <li><a href="/info/main">Informaci&oacute;n &uacute;til</a></li>
-          <li><a href="/confirmar">Confirmar asistencia</a></li>
+          <li><a href="/confirm">Confirmar asistencia</a></li>
         </ul>
         <div class="menu">
           <paper-menu-button >
             <paper-icon-button icon="menu" class="dropdown-trigger" alt="menu"></paper-icon-button>
             <paper-menu class="dropdown-content">
               <paper-item><a href="/home">Inicio</a></paper-item>
-              <paper-item><a href="/nuestra-historia">Nuestra historia</a></paper-item>
+              <paper-item><a href="/timeline">Nuestra historia</a></paper-item>
               <paper-item><a href="/info/main">Informaci&oacute;n &uacute;til</a></paper-item>
-              <paper-item><a href="/confirmar">Confirmar asistencia</a></paper-item>
+              <paper-item><a href="/confirm">Confirmar asistencia</a></paper-item>
             </paper-menu>
           </paper-menu-button>
         </div>
       </app-box>
     </header>
-    <iron-pages attr-for-selected="name" selected="[[data.page]]">
+    <iron-pages attr-for-selected="name" selected="[[page]]">
       <bodaluzos-home name="home"></bodaluzos-home>
-      <bodaluzos-timeline name="nuestra-historia"></bodaluzos-timeline>
+      <bodaluzos-timeline name="timeline"></bodaluzos-timeline>
       <bodaluzos-info name="info"></bodaluzos-info>
-      <bodaluzos-confirm name="confirmar"></bodaluzos-confirm>
+      <bodaluzos-confirm name="confirm"></bodaluzos-confirm>
     </iron-pages>
   </template>
   <script>
     Polymer({
 
       is: 'BodaLuzos-app',
-      attached: function(){
-        if(this.data.page == ''){
-          this.set('data.page', 'home');
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChaged'
         }
+      },
+      observers: [
+        '_dataPageChanged(data.page)'
+      ],
+      attached: function(){
+        // console.log('Ejecutando attached. data.page:', this.data.page);
+        // if(this.data.page == ''){
+        //   this.set('data.page', 'home');
+        // }
+        // console.log('data.page cambiado a:', this.data.page);
+
         this._updateGridStyles = this._updateGridStyles || function() {
         this.updateStyles();
         }.bind(this);
@@ -155,6 +168,17 @@
       detached: function() {
           window.removeEventListener('resize', this._updateGridStyles);
       },
+      _dataPageChanged: function(page){
+        this.page = page || 'home';
+      },
+      _pageChaged: function(page){
+        this.importHref(
+          this.resolveUrl('./bodaluzos-' + page + '.html'),
+          null,
+          null,
+          true
+        );
+      }
     });
   </script>
 </dom-module>
