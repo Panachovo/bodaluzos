@@ -1,8 +1,8 @@
-<link rel="import" href="bodaluzos-main-info.html">
+<!--<link rel="import" href="bodaluzos-main-info.html">
 <link rel="import" href="bodaluzos-ceremony-info.html">
 <link rel="import" href="bodaluzos-banquet-info.html">
 <link rel="import" href="bodaluzos-rooms-info.html">
-<link rel="import" href="bodaluzos-todo-info.html">
+<link rel="import" href="bodaluzos-todo-info.html">-->
 
 <link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
@@ -15,30 +15,30 @@
                 display: block;
             }
         </style>
-        <app-location route="{{route}}"></app-location>
-        <app-route route="{{route}}" pattern="/:page/:subpage" data="{{data}}"></app-route>
+<app-location route="{{route}}"></app-location>
+<app-route route="{{route}}" pattern="/:page/:subpage" data="{{data}}"></app-route>
 
-        <!--<iron-pages attr-for-selected="name" selected="[[data.subpage]]">-->
-        <neon-animated-pages attr-for-selected="name" selected="[[data.subpage]]" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
-            <neon-animatable name="main">
-                <bodaluzos-main-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-main-info>
-            </neon-animatable>
-            <neon-animatable name="ceremonia">
-                <bodaluzos-ceremony-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-ceremony-info>
-            </neon-animatable>
-            <neon-animatable name="banquete">
-                <bodaluzos-banquet-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-banquet-info>
-            </neon-animatable>
-            <neon-animatable name="donde-dormir">
-                <bodaluzos-rooms-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-rooms-info>
-            </neon-animatable>
-            <neon-animatable name="que-hacer">
-                <bodaluzos-todo-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-todo-info>
-            </neon-animatable>
-        </neon-animated-pages>
-        <!--</iron-pages>-->
-    </template>
-    <script>
+<!--<iron-pages attr-for-selected="name" selected="[[data.subpage]]">-->
+<neon-animated-pages attr-for-selected="name" selected="[[data.subpage]]" entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}">
+    <neon-animatable name="main">
+        <bodaluzos-main-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-main-info>
+    </neon-animatable>
+    <neon-animatable name="ceremony">
+        <bodaluzos-ceremony-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-ceremony-info>
+    </neon-animatable>
+    <neon-animatable name="banquet">
+        <bodaluzos-banquet-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-banquet-info>
+    </neon-animatable>
+    <neon-animatable name="rooms">
+        <bodaluzos-rooms-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-rooms-info>
+    </neon-animatable>
+    <neon-animatable name="todo">
+        <bodaluzos-todo-info entry-animation="{{entryAnimation}}" exit-animation="{{exitAnimation}}"></bodaluzos-todo-info>
+    </neon-animatable>
+</neon-animated-pages>
+<!--</iron-pages>-->
+</template>
+<script>
         Polymer({
             is: 'bodaluzos-info',
             properties: {
@@ -49,7 +49,26 @@
                 exitAnimation: {
                     type: String,
                     value: ''
+                },
+                subpage: {
+                    type: String,
+                    reflectToAttribute: true,
+                    observer: '_subpageChaged'
                 }
+            },
+            observers: [
+                '_dataSubpageChanged(data.subpage)'
+            ],
+            _dataSubpageChanged: function (subpage) {
+                this.subpage = this.data.subpage || 'main';
+            },
+            _subpageChaged: function (subpage) {
+                this.importHref(
+                    this.resolveUrl('./bodaluzos-' + subpage + '-info.html'),
+                    null,
+                    null,
+                    true
+                );
             }
         });
     </script>
