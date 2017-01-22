@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
 
 <link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
@@ -60,8 +61,14 @@
                 -moz-border-radius: 25px 25px 25px 25px;
                 -webkit-border-radius: 25px;  
                 border-radius: 25px 25px 25px 25px;
-                background-color: #990000;
-                color: white;
+                color: var(--app-dark-gray-color);
+                border-style: solid;
+                border-width: 5px;
+                border-color: #990000;
+            }
+
+            .additional-info {
+                font-size: 10px;
             }
         </style>
         <firebase-app api-key="AIzaSyBgbzlvi_V6GjSLGZkLSSxVtZEAKA4B9jY" app="{{firebaseApp}}" auth-domain="bodaluzos.firebaseapp.com"
@@ -108,9 +115,11 @@
 
         <paper-dialog modal="true" id="errorDialog">
             <h2>Opppss!</h2>
-            <div>Parece que algo ha ido mal. Lo sentimos, prueba a intentarlo más tarde o ponte en contacto con nosotros vía email
-                o teléfono.</div>
-            <div>Más información: [[errorMessage]]</div>
+            <paper-dialog-scrollable >
+                <p>Parece que algo ha ido mal. Lo sentimos, prueba a intentarlo más tarde o ponte en contacto con nosotros vía email
+                    o teléfono.</p>
+                <p class="additional-info"><u>Más información:</u> [[errorMessage]] </p>
+            </paper-dialog-scrollable>
             <div class="buttons">
                 <paper-button dialog-confirm autofocus>Aceptar</paper-button>
             </div>

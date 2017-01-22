@@ -3,15 +3,39 @@
         <style>
             :host {
                 display: block;
+                margin: 40px auto;
+                width: 90%;
             }
             
             #home {
-                margin: 40px auto;
-                width: 500px;
+                font-size: 40px;   
+                text-align: center;
+            }
+            
+            @font-face {
+                font-family: "DK-Crayon-Crumble";
+                src: url(../fonts/DK-Crayon-Crumble.ttf) format("truetype");
+            }
+            
+            .post-it {
+                /*padding-left:25px;*/
+                font-family: "DK-Crayon-Crumble";
+                background: url("/src/images/post-it-yellow.png") 0 50%;
+                background-repeat: no-repeat;
+                /*background-position-x: left;
+                background-position-y: center;*/
+                background-size: cover;
+                display: inline-block;
+                line-height: 100px;
+                height: 100px;
+                width: 100px;
+                text-align: center;
+                color:darkred;
+                font-weight: bold;
             }
         </style>
         <div id="home">
-            Quedan [[timeout]] d&iacute;as para la boda!!!
+            Quedan <span class="post-it">[[timeout]]</span> d&iacute;as para la boda!!!
         </div>
     </template>
     <script>
