@@ -1,0 +1,120 @@
+<html><head><link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../../bower_components/polymerfire/firebase-app.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-auth.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<link rel="import" href="../../bower_components/gold-email-input/gold-email-input.html">
+<link rel="import" href="../../bower_components/gold-phone-input/gold-phone-input.html">
+</head><body><dom-module id="bodaluzos-confirm">
+    <template>
+        <style>
+            :host {
+                display: block;
+                margin: 10px auto;
+                width: 95%;
+                --paper-card-actions: {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+            
+            .header {
+                @apply(--paper-font-headline);
+                color: var(--app-dark-gray-color);
+            }
+
+            @media only screen and (min-width: 1170px) {
+                :host{
+                    width: 95%;
+                }
+            }
+            
+            .header-icon {
+                float: right;
+                font-size: 15px;
+                vertical-align: middle;
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+            paper-button {
+                margin: 10px;
+                min-width: 0;
+                text-transform: none;
+                color: var(--app-dark-primary-color, black);
+                text-decoration: none;
+            }
+            
+            .negative-button {
+                color: white;
+                background-color: #990000;
+            }
+
+            paper-dialog {
+                -moz-border-radius: 25px 25px 25px 25px;
+                -webkit-border-radius: 25px;  
+                border-radius: 25px 25px 25px 25px;
+                background-color: #990000;
+                color: white;
+            }
+        </style>
+        <firebase-app api-key="AIzaSyBgbzlvi_V6GjSLGZkLSSxVtZEAKA4B9jY" app="{{firebaseApp}}" auth-domain="bodaluzos.firebaseapp.com" database-url="https://bodaluzos.firebaseio.com" storage-bucket="bodaluzos.appspot.com" messaging-sender-id="24072448421">
+        </firebase-app>
+        <firebase-auth id="auth" user="{{user}}" provider="facebook" on-error="handleError" signed-in="{{logged}}"></firebase-auth>
+        <paper-card heading="" image="" elevation="1" animated-shadow="false" hidden="[[hidePanelLogin]]">
+            <div class="card-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab eligendi suscipit nisi, porro rem aliquam. Vitae
+                    sit, impedit quaerat doloremque veniam praesentium, dolores quam nulla, numquam quis itaque dolor magni?</p>
+            </div>
+            <div class="card-actions">
+
+                <paper-button on-tap="login" raised="">Acceder con Facebook</paper-button>
+
+            </div>
+        </paper-card>
+        <paper-card heading="Perfecto [[user.displayName]]! " image="" elevation="1" animated-shadow="false" hidden="[[hidePanelToConfirm]]">
+            <div class="card-content">
+                <p>Ahora que te has logado con facebook puedes confirmar tu asistencia. Gracias a facebook contamos con algunos
+                    datos tuyos, pero si quieres los puedes cambiar.</p>
+                <p>Además, puedes dejarnos tu teléfono por si tuvieramos que ponernos en contacto contigo asegurarnos que tenemos
+                    el correcto, pero sólo si quieres!</p>
+                <paper-input id="name" label="Nombre y Apellidos" value="[[user.displayName]]" required="" error-message="Necesitamos tu nombre!"></paper-input>
+                <gold-email-input id="email" label="email" value="[[user.email]]" error-message="Necesitamos tu correo!"></gold-email-input>
+                <gold-phone-input id="phone" label="Teléfono" country-code="34" phone-number-pattern="XXX-XXX-XXX"></gold-phone-input>
+            </div>
+            <div class="card-actions">
+                <paper-button on-tap="confirm" raised="">Claro que si güapi!</paper-button>
+                <paper-button class="negative-button" on-tap="logout" raised="">Mmm mejor no...</paper-button>
+            </div>
+        </paper-card>
+        <paper-card heading="Gracias [[user.displayName]]! " image="" elevation="1" animated-shadow="false" hidden="[[hidePanelConfirmed]]">
+            <div class="card-content">
+                <p>Ya contamos contigo para que nos acompañes en nuestro gran día! Además de eso, guarda fuerzas porque también
+                    esperamos que lo des todo!!!</p>
+            </div>
+            <div class="card-actions">
+
+                <paper-button class="negative-button" on-tap="logout" raised="">Salir</paper-button>
+
+            </div>
+        </paper-card>
+
+        <paper-dialog modal="true" id="errorDialog">
+            <h2>Opppss!</h2>
+            <div>Parece que algo ha ido mal. Lo sentimos, prueba a intentarlo más tarde o ponte en contacto con nosotros vía email
+                o teléfono.</div>
+            <div>Más información: [[errorMessage]]</div>
+            <div class="buttons">
+                <paper-button dialog-confirm="" autofocus="">Aceptar</paper-button>
+            </div>
+        </paper-dialog>
+
+    </template>
+    <script>Polymer({is:"bodaluzos-confirm",properties:{logged:{type:Boolean,value:!1,observer:"_evaluatePanels"},confirmed:{type:Boolean,value:!1,observer:"_evaluatePanels"},hidePanelToConfirm:{type:Boolean,value:!0},hidePanelConfirmed:{type:Boolean,value:!0},hidePanelLogin:{type:Boolean,value:!0},errorMessage:String},login:function(){var e=this;this.$.auth.signInWithPopup().then(function(e){e.credential.accessToken,e.user}).catch(function(o){var i=o.code;e.errorMessage=o.message,console.log("Error!!",i,e.errorMessage),e.$.errorDialog.open()})},logout:function(){this.$.auth.signOut(),this.confirmed=!1},confirm:function(){var e=new Date,o=e.toString();this.firebaseApp.database().ref("/guests/"+this.user.uid).set({nombreFacebook:this.user.displayName,emailFacebook:this.user.email,nombre:this.$.name.value,email:this.$.email.value,phone:this.$.phone.value,confirmDate:o}),this.confirmed=!0},_evaluatePanels:function(){console.log("logged:",this.logged,"confirmed:",this.confirmed),console.log("antes",this.hidePanelLogin,this.hidePanelToConfirm,this.hidePanelConfirmed),this.hidePanelLogin=this.logged,this.hidePanelToConfirm=!this.logged||this.confirmed,this.hidePanelConfirmed=!this.logged||!this.confirmed,console.log("despues",this.hidePanelLogin,this.hidePanelToConfirm,this.hidePanelConfirmed)}});</script>
+</dom-module></body></html>
