@@ -1,7 +1,7 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-list/iron-list.html">
 
-<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="./bodaluzos-guests-item.html">
 
 <dom-module id="bodaluzos-guests">
     <template>
@@ -12,52 +12,18 @@
                 margin: 10px auto;
             }
 
-            .row {
-                background-color: white;
-                border-color: lightgrey;
-                border-width: thin;
-                border-bottom-style: solid;
-                padding: 15px 0;
-                margin-top: -20px;
-                padding-left: 10px;
-            }
-
-            .cell {
-                display: inline-block;
-            }
-
             iron-list {
-                overflow: visible;
-                margin-top: 40px;
-            }
-
-            .rigth {
-                float: right;
-                margin-right: 10px;
+                overflow: visible !important;
             }
         </style>
 
 
         <iron-ajax auto url="http://localhost:3000/guests" handle-as="json" last-response="{{guestsData}}"></iron-ajax>
-        <iron-ajax id="updateAjax"></iron-ajax>
 
 
         <iron-list items="[[guestsData]]" as="item">
             <template>
-                <div class="row">
-                    <div class="cell">
-                        [[item.firstname]] 
-                    </div>
-                    <div class="cell">
-                        [[item.lastname]] 
-                    </div>
-                    <div class="cell rigth">
-                        <paper-checkbox on-change="invite" checked=[[item.invited]]>Invitado</paper-checkbox>
-                    </div>
-                    <div class="cell rigth">
-                        <paper-checkbox checked=[[item.confirmed]]>Confirmado</paper-checkbox>
-                    </div>
-                </div>
+                <bodaluzos-guests-item data="[[item]]"></bodaluzos-guests-item>
             </template>
         </iron-list>
 
@@ -65,9 +31,7 @@
     <script>
         Polymer({
             is: 'bodaluzos-guests',
-            invite: function(){
-                console.log("se ha pulsado", this);
-            }
+
         });
     </script>
 </dom-module>
