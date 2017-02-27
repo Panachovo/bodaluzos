@@ -1,0 +1,22 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/BodaLuzos-app/BodaLuzos-app.html",
+  "fragments": [
+    "src/BodaLuzos-app/bodaluzos-banquet-info.html",
+    "src/BodaLuzos-app/bodaluzos-ceremony-info.html",
+    "src/BodaLuzos-app/bodaluzos-confirm.html",
+    "src/BodaLuzos-app/bodaluzos-home.html",
+    "src/BodaLuzos-app/bodaluzos-info.html",
+    "src/BodaLuzos-app/bodaluzos-main-info.html",
+    "src/BodaLuzos-app/bodaluzos-rooms-info.html",
+    "src/BodaLuzos-app/bodaluzos-todo-info.html",
+    "src/BodaLuzos-app/bodaluzos-timeline.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "bower.json"
+  ],
+  "includeDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}
