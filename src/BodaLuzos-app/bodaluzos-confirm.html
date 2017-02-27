@@ -81,8 +81,8 @@
         <firebase-auth id="auth" user="{{user}}" provider="facebook" on-error="handleError" signed-in="{{logged}}"></firebase-auth>
         <paper-card heading="" image="" elevation="1" animated-shadow="false" hidden="[[hidePanelLogin]]">
             <div class="card-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab eligendi suscipit nisi, porro rem aliquam. Vitae
-                    sit, impedit quaerat doloremque veniam praesentium, dolores quam nulla, numquam quis itaque dolor magni?</p>
+                <p>Todo el mundo nos dice que para su boda le costó mucho que la gente confirmara su asistencia. Por esto hemos intentado facilitarte este trabajo, haciendo sólo un par de clicks podrás notificarnos que nos acompañaras en este día tan especial y nos harás muy feliz.</p>
+                <p>Tan sólo que, para saber que eres tú, tendrás que introducir tus credenciales de facebook y pertimir que la web acceda a tus datos (nombre y apellidos). <b>No nos vamos a quedar tus datos ni contraseñas, no podemos ni queremos :)</b></p>
             </div>
             <div class="card-actions">
 
@@ -169,7 +169,6 @@
                     // Handle Errors here.
                     var errorCode = error.code;
                     _context.errorMessage = error.message;
-                    console.log("Error!!", errorCode, _context.errorMessage);
                     _context.$.errorDialog.open();
                 });
             },
@@ -191,12 +190,9 @@
                 this.confirmed = true;
             },
             _evaluatePanels: function(){
-                console.log('logged:', this.logged, 'confirmed:', this.confirmed);
-                console.log('antes', this.hidePanelLogin, this.hidePanelToConfirm, this.hidePanelConfirmed);
                 this.hidePanelLogin = this.logged;
                 this.hidePanelToConfirm = !this.logged || this.confirmed;
                 this.hidePanelConfirmed = !this.logged || !this.confirmed;
-                console.log('despues', this.hidePanelLogin, this.hidePanelToConfirm, this.hidePanelConfirmed);
             }
         });
     </script>
