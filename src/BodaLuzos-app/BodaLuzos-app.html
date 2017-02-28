@@ -1,15 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<!--<link rel="import" href="bodaluzos-social.html">
-<link rel="import" href="bodaluzos-home.html">
-<link rel="import" href="bodaluzos-timeline.html">
-<link rel="import" href="bodaluzos-info.html">
-<link rel="import" href="bodaluzos-confirm.html">-->
-
 
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-box/app-box.html">
-
 <link rel="import" href="../../bower_components/app-route/app-location.html">
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 
@@ -148,7 +141,7 @@
         page: {
           type: String,
           reflectToAttribute: true,
-          observer: '_pageChaged'
+          observer: '_pageChanged'
         }
       },
       observers: [
@@ -172,7 +165,7 @@
       _dataPageChanged: function(page){
         this.page = page || 'home';
       },
-      _pageChaged: function(page){
+      _pageChanged: function(page){
         this.importHref(
           this.resolveUrl('./bodaluzos-' + page + '.html'),
           null,
